@@ -1,0 +1,1083 @@
+{
+	"info": {
+		"_postman_id": "4bdb8018-e6c6-4f04-a152-e06317bd9664",
+		"name": "Regression | LBES | BulkAPI | Error path",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24073698"
+	},
+	"item": [
+		{
+			"name": "AC1-Invalid ICPs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Status code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Status \r",
+							"pm.test(\"Check Status text\",function(){\r",
+							"pm.expect(pm.response.status).to.eql(\"OK\")\r",
+							"})\r",
+							"\r",
+							"//parse json data\r",
+							" var abc=pm.response.json()\r",
+							" console.log(abc)\r",
+							" pm.test(\"Checking data type\",function(){\r",
+							"pm.expect(abc).to.be.an(\"object\")\r",
+							"\r",
+							" })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITY\",\r\n    \"icps\" : [\"0000880424WE6AD\",\"0001256154UN6351\",\"0000201328CT762A\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC4  405 Method not allowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"\r",
+							"//Status \r",
+							"pm.test(\"Check Status text\",function(){\r",
+							"pm.expect(pm.response.status).to.eql(\"Method Not Allowed\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITY\",\r\n    \"icps\" : [\"0000246211QT471\",\"0000169133TRC96\",\"1002170335LC2AE\",\"0007129848RN860\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1?includeMeter=false&includeDevice=false&includeTOU=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "false"
+						},
+						{
+							"key": "includeDevice",
+							"value": "false"
+						},
+						{
+							"key": "includeTOU",
+							"value": "false"
+						}
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC4  400 Bad request-Invaid utility",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"//Status \r",
+							"pm.test(\"Check Status text\",function(){\r",
+							"pm.expect(pm.response.status).to.eql(\"Bad Request\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITYY\",\r\n    \"icps\" : [\"0000246211QT471\",\"0000169133TRC96\",\"1002170335LC2AE\",\"0007129848RN860\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1?includeMeter=false&includeDevice=false&includeTOU=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "false"
+						},
+						{
+							"key": "includeDevice",
+							"value": "false"
+						},
+						{
+							"key": "includeTOU",
+							"value": "false"
+						}
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC4  400 Bad request-Invaid request-URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"//Status \r",
+							"pm.test(\"Check Status text\",function(){\r",
+							"pm.expect(pm.response.status).to.eql(\"Bad Request\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITYY\",\r\n    \"icps\" : [\"0000246211QT471\",\"0000169133TRC96\",\"1002170335LC2AE\",\"0007129848RN860\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1?includeMeter=false&includeDevice=false&includeTOU=false&test=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "false"
+						},
+						{
+							"key": "includeDevice",
+							"value": "false"
+						},
+						{
+							"key": "includeTOU",
+							"value": "false"
+						},
+						{
+							"key": "test",
+							"value": "false"
+						}
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC4  404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITY\",\r\n    \"icps\" : [\"0000246211QT471\",\"0000169133TRC96\",\"1002170335LC2AE\",\"0007129848RN860\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v2?includeMeter=false&includeDevice=false&includeTOU=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v2"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "false"
+						},
+						{
+							"key": "includeDevice",
+							"value": "false"
+						},
+						{
+							"key": "includeTOU",
+							"value": "false"
+						}
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC4  404 Gateway",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"//Status \r",
+							"pm.test(\"Check Status text\",function(){\r",
+							"pm.expect(pm.response.status).to.eql(\"Not Found\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITY\",\r\n    \"icps\" : [\"0000246211QT471\",\"0000169133TRC96\",\"1002170335LC2AE\",\"0007129848RN860\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1/abc?includeMeter=false&includeDevice=false&includeTOU=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1",
+						"abc"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "false"
+						},
+						{
+							"key": "includeDevice",
+							"value": "false"
+						},
+						{
+							"key": "includeTOU",
+							"value": "false"
+						}
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC4  415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 415\", function () {\r",
+							"    pm.response.to.have.status(415);\r",
+							"});\r",
+							"\r",
+							"//Status \r",
+							"pm.test(\"Check Status text\",function(){\r",
+							"pm.expect(pm.response.status).to.eql(\"Unsupported Media Type\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITY\",\r\n    \"icps\" : [\"0000246211QT471\",\"0000169133TRC96\",\"1002170335LC2AE\",\"0007129848RN860\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1?includeMeter=false&includeDevice=false&includeTOU=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "false"
+						},
+						{
+							"key": "includeDevice",
+							"value": "false"
+						},
+						{
+							"key": "includeTOU",
+							"value": "false"
+						}
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC4  406 Not Acceptable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 406\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITY\",\r\n    \"icps\" : [\"0000246211QT471\",\"0000169133TRC96\",\"1002170335LC2AE\",\"0007129848RN860\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1?includeMeter=false&includeDevice=false&includeTOU=false",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "false"
+						},
+						{
+							"key": "includeDevice",
+							"value": "false"
+						},
+						{
+							"key": "includeTOU",
+							"value": "false"
+						}
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC5-LPG-400 Bad Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"LPG\",\r\n    \"icps\" : [\"0000085484TR47A\",\"0001256154UN635\",\"0000201328CT762\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					]
+				},
+				"description": "POST Bulk API Elec 1 ICPs"
+			},
+			"response": []
+		},
+		{
+			"name": "AC6 GAS 300 ICPs -422 Server Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"GAS\",\r\n    \"icps\" : [\"0000246211QT471\",\"0002029561QT0BC\",\"1001293739NG974\",\"0001807411QTD52\",\"0003033408NGEC7\",\"0000001011QT95B\",\"0001660921QT38C\",\"1001301285NGD35\",\"0001438727QT2A4\",\"0002000765NG81A\",\"0000000731QTAAC\",\"0001124053PGDFD\",\"0004216131NGD7E\",\"0001025801NGCC9\",\"0001434626QTC65\",\"0003010924NGEA9\",\"0001446950QTE41\",\"1002140898QTD29\",\"1001274247QT56C\",\"0004219270NG9FD\",\"0000086291QTD53\",\"0001392801QTCD2\",\"0004223086NGD0E\",\"0001002501NG46C\",\"0054230266PG36D\",\"0000012273GNA96\",\"0003037902NGFDE\",\"0001429229QTD7B\",\"1001298320NGE69\",\"0001030106NG7CB\",\"0004010366NGFA3\",\"0001854641QTEC9\",\"0001447751QT5AF\",\"0000016593GN9AE\",\"0001687571QTE95\",\"0002332541QT65C\",\"1002139842QT4E3\",\"1002066699QTF06\",\"0001424725QT140\",\"0003036314NGF56\",\"1001302441NGF36\",\"0001004644NGD45\",\"0000051301QT381\",\"0075002623PG99D\",\"0001390810PG3C4\",\"0001029846NG826\",\"1001297038NGCB3\",\"0001211401PG3C9\",\"0000014928GNA84\",\"0001842311QTEE5\",\"0003024494NGEBF\",\"1002093863QT937\",\"0000016795GN226\",\"0000002061QTEE6\",\"0002378261QT1DE\",\"0004211786NG060\",\"0000012273GNA96\",\"1002158092QTA54\",\"1002041932QTB6F\",\"1001303759NG52C\",\"0000246961QT222\",\"0002029579NGEC3\",\"1001293739NG974\",\"0001808141QT93F\",\"0003033520NG882\",\"0000001141QT857\",\"0001661021QTB25\",\"1001301307NG1FE\",\"0001438875QT526\",\"0002001135NG7B4\",\"0000002331QT5ED\",\"0001141091PGFEF\",\"0004216331NG779\",\"0001025803NGC4C\",\"0001435373QTD87\",\"0003011043NG43A\",\"0001447210QTE4A\",\"1002140967QTBE4\",\"1001274433NG1FB\",\"0004219289NG7BB\",\"0000087081QTC59\",\"0001393913QTE5E\",\"0004223195NG267\",\"0001002534NGEDB\",\"0054230329PG712\",\"0000012295GN1A3\",\"0003038205NG87A\",\"0001429708QT96E\",\"1001298322NGEEC\",\"0001030370PG566\",\"0004010385NG9D9\",\"0001856041QTB8F\",\"0001447777QT975\",\"0000016773GN913\",\"0001688151QT6A1\",\"0002333861QTFA1\",\"1002140074QT480\",\"1002067053QTDDE\",\"0001425624QT5A1\",\"0003036420NG6A6\",\"1001302441NGF36\",\"0001004697NGCC7\",\"0000056391QT806\",\"0075002669PG9A9\",\"0001391000PG8C4\",\"0001029906NG387\",\"1001297112NGA73\",\"0001221330PG65A\",\"0000014998GN836\",\"0001844201QT88C\",\"0003024590NG6B1\",\"1002093878QTD4E\",\"0000016827GNF1E\",\"0000003241QT814\",\"0002378544QTEC6\",\"0004211872NGE72\",\"0000012319GNEF3\",\"1002158424QT568\",\"1002042010QTD56\",\"1001303785NGB70\",\"0000247171QT922\",\"0002029657NG30E\",\"1001293759NG684\",\"0001809611QTF95\",\"0003033559NG38E\",\"0000003611QTC1D\",\"0001665121QT4A1\",\"1001301307NG1FE\",\"0001439258QTC82\",\"0002001306NG68B\",\"0000003851QT8B3\",\"0001180044PGAF2\",\"0004216363NGFF4\",\"0001025855NG5CB\",\"0001435397QT637\",\"0003011169NG2FA\",\"0001447781QT8ED\",\"1002141257QTEB2\",\"1001274489QT71E\",\"0004219340NG701\",\"0000089471QT88F\",\"0001393987QT0B3\",\"0004223518NG477\",\"0001002547NG746\",\"0054230549PGEE4\",\"0000012432GN270\",\"0003038475NGB21\",\"0001430535QTF8B\",\"1001298343QTB9F\",\"0001030404NG24B\",\"0004010434NG82C\",\"0001858091QTE0D\",\"0001447777QT975\",\"0000016834GN973\",\"0001688861QT850\",\"0002335231QT863\",\"1002140429QTFD2\",\"1002067119QT4EE\",\"0001425750QT8F2\",\"0003036650NG9FC\",\"1001302443NGFB3\",\"0001004750NGFE6\",\"0000057161QT3B6\",\"0075002949PGBF3\",\"0001392551QT1D2\",\"0001029946NG122\",\"1001297123NG1CE\",\"0001230200PG1E7\",\"0000015216GNC49\",\"0001845041QT18E\",\"0003024649NG6A1\",\"1002094048QTEDB\",\"0000016859GN9D8\",\"0000004631QT528\",\"0002378624QT235\",\"0004211948NG21F\",\"0000012436GN37A\",\"1002159496QT6FF\",\"1002042739QT150\",\"1001303801NG03F\",\"0000248051QT413\",\"0002030761QTEFA\",\"1001293764NGE27\",\"0001810351QTC74\",\"0003033563NG6E7\",\"0000004521QTC86\",\"0001666231QTFEF\",\"1001301338NG9D8\",\"0001439655QTFD8\",\"0002001411NGEEE\",\"0000004551QT9DB\",\"0001210750PG527\",\"0004216409NGD97\",\"0001026156NG2E2\",\"0001435399QT5AC\",\"0003011300NG95C\",\"0001447860QT11D\",\"1002141804QT070\",\"1001274600NG0C4\",\"0004219410NG00B\",\"0000090401QT993\",\"0001394023QT4CF\",\"0004223522NG11E\",\"0001002764NGCD4\",\"0075000083PG4C4\",\"0000012493GN62A\",\"0003038617NGE53\",\"0001430892QTF56\",\"1001298346NG016\",\"0001030939NGFE0\",\"0004010447NG1B1\",\"0001860490PG8DB\",\"0001449402QTAA4\",\"0000017167GN512\",\"0001689531QT4F0\",\"0002335271QTAC6\",\"1002140582QT01D\",\"1002068951QTD32\",\"0001425984QT2B1\",\"0003036811NG117\",\"1001302464NGF2C\",\"0001004913NG788\",\"0000057221QT210\",\"0075002955PG240\",\"0001392571QTC87\",\"0001030057NGA82\",\"1001297124NGC04\",\"0001242180PGE57\",\"0000015441GNF8D\",\"0001845671QT070\",\"0003024700NG351\",\"1002094051QTA27\",\"0000016971QT323\",\"0000006411QT13A\",\"0002379411QT325\",\"0004212250NGB48\",\"0000012466GNB72\",\"1002160111QT6F6\",\"1002043217QTB3B\",\"1001303857NG9B8\",\"0000250311QT054\",\"0002032931QT3B9\",\"1001293770QT346\",\"0001810481QTE34\",\"0003033625NG6CE\",\"0000010061QT547\",\"0001667621QT8E3\",\"1001301342NGE14\",\"0001440117QT4E3\",\"0002001413NGE6B\",\"0000006311QTE38\",\"0001211371PG996\",\"0004216533NG1FA\",\"0001026243NG603\",\"0001435976QTAC2\",\"0003011418NGEE7\",\"0001448038QT26C\",\"1002141875QT968\",\"1001274631NGB79\",\"0004219651NG4EC\",\"0000091781QTE7A\",\"0001394153QT896\",\"0004223553NG806\",\"0001002767NG014\",\"0075000124PG815\",\"0000013196GNFC0\",\"0003038721NG120\",\"0001431702QTE1E\",\"1001298363NG00C\",\"0001030943NG82C\",\"0004010547NG8B5\",\"0001862210PG8D7\",\"0001449869QT78C\",\"0000017223GN5BE\",\"0001691100PGC13\",\"0002335331QT167\",\"1002140649QTA25\",\"1002069068QTC32\",\"0001426147QTB73\",\"0003036903NG23B\",\"1001302522NG502\",\"0001005090NG6AB\",\"0000058931QT2D3\",\"0075003048PGF1F\",\"0001392588QT2C1\",\"0001030203NG987\",\"1001297126NGC81\",\"0001250200PG3BF\",\"0000015462GNE18\",\"0001845751QT421\",\"0003024758NG94D\",\"1002094345QT283\",\"0000017177GNFBF\",\"0000009271QT1AC\",\"0002379463QT6FD\",\"0004212501NG007\",\"0000012773GNF93\",\"1002160256QTA9A\",\"1002043229QTF58\",\"1001303897NGE57\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1?includeMeter=true&includeDevice=true&includeTOU=true",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "true"
+						},
+						{
+							"key": "includeDevice",
+							"value": "true"
+						},
+						{
+							"key": "includeTOU",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Bulk API"
+			},
+			"response": []
+		},
+		{
+			"name": "AC6 Electricity 201 ICPs-422 Server Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Brand-ID",
+						"value": "GENE",
+						"type": "text"
+					},
+					{
+						"key": "X-Channel-ID",
+						"value": "Salesforce",
+						"type": "text"
+					},
+					{
+						"key": "X-Application-ID",
+						"value": "CRM",
+						"type": "text"
+					},
+					{
+						"key": "X-Transaction-ID",
+						"value": "Sushmita1stTest",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "371c4e1bacd54602a1fe5704ae65cc3f",
+						"type": "text"
+					},
+					{
+						"key": "client_secret",
+						"value": "577faE51758F43b4B5dB4f1D3e14e281",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"utility\" : \"ELECTRICITY\",\r\n    \"icps\" : [\"0000085484TR47A\",\"0005536510RN238\",\"0006628419RN233\",\"0000046151HB7F5\",\"0000151484UN01F\",\"0030165790LC29E\",\"0007199005RNB9A\",\"0006559514RN3C1\",\"0000157298UNA6A\",\"0000174724UN5EE\",\"0000216854UN210\",\"0000546608NR7C6\",\"0001501301WE72B\",\"0006968910RNC85\",\"0001807613HBD2A\",\"0000570189NR527\",\"0007162249RNA5A\",\"0000061343CP4EB\",\"0015855348EL4F8\",\"0001073050PCA68\",\"0009125580CN318\",\"0006071740RN9DA\",\"0007285368WAD90\",\"0462028046LC10C\",\"0005776562RN4AD\",\"0002800820CA184\",\"0031530107PC595\",\"0000761970HBE4E\",\"0373156555HB636\",\"0000506003DE83A\",\"0000157678TR609\",\"0000002218CE30C\",\"0005722705RN964\",\"0006495397RN711\",\"0000148554UN018\",\"0000046112WEFDE\",\"0217654002LC760\",\"0000967447TU646\",\"0011005831PC422\",\"0000053142WE817\",\"0160781000LCA56\",\"0000168610CKD04\",\"0000245753UN141\",\"0000330420WEE6B\",\"0015798356ELD24\",\"0005240999RNF5D\",\"0069049972WE516\",\"1002145082LC8D9\",\"0007323162WA242\",\"0011111000WRB2E\",\"0000574071NR8A0\",\"0001283900PC62D\",\"0000706674WE03D\",\"0000189976UN4D4\",\"1001281358UNB52\",\"0036700444PCE21\",\"0349543399LCD9D\",\"1099571290CN86F\",\"1001121483LC78E\",\"0000000336TR14A\",\"0052049000WR0D1\",\"0005536715RN570\",\"0006628435RNC78\",\"0000046185HBBBD\",\"0000151494TR06A\",\"0030166360PC41A\",\"0007199066RN8AA\",\"0006559980RN120\",\"0000157340TR6E0\",\"0000174735TR9DE\",\"0000216865UN9AD\",\"0000546682NR01D\",\"0001501473WEDF1\",\"0006969410RN82D\",\"0001807923HB5DD\",\"0000570207WE200\",\"0007162419RN454\",\"0000061353NT45D\",\"0015858348ELED8\",\"0001082390PCAB8\",\"0009130600WMADB\",\"0006071902RNDF1\",\"0007285787WA4F5\",\"0462420061LC52C\",\"0005779154RN7BB\",\"0002805378HB180\",\"0031600627PCA5A\",\"0000762004TU914\",\"0374316376LCBD3\",\"0000506032NRF3C\",\"0000157727CK67E\",\"0000002226TR1A3\",\"0005723013EL2AF\",\"0006495745RN6D7\",\"0000148557UNCD8\",\"0000046149DE74C\",\"0217832008LC87F\",\"0000967518TU894\",\"0011005976PC249\",\"0000053146WE91D\",\"0161451020LC15F\",\"0000168642CK589\",\"0000245777UND1E\",\"0000330451WE773\",\"0015798590ELD42\",\"0005244471RN47B\",\"0070086000WR565\",\"1002145088LCA48\",\"0007328126WAE0D\",\"0011204228EL19A\",\"0000574079NRAB4\",\"0001284570CND25\",\"0000706996HB343\",\"0000190013HB12C\",\"1001281457LC19A\",\"0036700503PC84A\",\"0350186316LCCC2\",\"1099571297CN5A5\",\"1001121629UND13\",\"0000000338TR2D1\",\"0052064804WR23B\",\"0005541239RN0E7\",\"0006632726AL9E8\",\"0000046224DE4E4\",\"0000151519UN9A7\",\"0030166502PCD69\",\"0007199105RN29E\",\"0006560027HB464\",\"0000157606TR0CF\",\"0000174915UN858\",\"0000216914UN9B1\",\"0000546737NR6E4\",\"0001501633WE553\",\"0006969461RN135\",\"0001808348HB793\",\"0000570207WE200\",\"0007162574RNDFB\",\"0000061356NT912\",\"0015864232ELABC\",\"0001082450WM427\",\"0009131580WMD32\",\"0006071902RNDF1\",\"0007288060WA6A7\",\"0462579409LCF71\",\"0005779219RN946\",\"0002805416HB2E9\",\"0031600636PCCB2\",\"0000762026TU4C4\",\"0374605238LC43B\",\"0000506063NRB71\",\"0000157768UNF78\",\"0000002236TRB0E\",\"0005723396RN7E2\",\"0006496355HB68F\",\"0000148734TRF37\",\"0000046150HBBB0\",\"0218406436LC989\",\"0000967643TUD4B\",\"0011005981PCF94\",\"0000053152WE2BA\",\"0161515649LCF81\",\"0000168647CK8C6\",\"0000245786UN14C\",\"0000330476MPB07\",\"0015801228EL7F8\",\"0005245745RN02A\",\"0070097000WRC24\",\"1002145351LCA58\",\"0007340443ALAC7\",\"0011207412EL015\",\"0000574082NR477\",\"0001285350PC1EF\",\"0000707482WEA02\",\"0000190023HB6D4\",\"1001281458UN450\",\"0036700504PC580\",\"0350330972LCB23\",\"1099571447CNEE1\",\"1001121629UND13\",\"0000000346CPA5C\",\"0052069312WM8F4\",\"0005548799RN15D\",\"0006633218AL92E\",\"0000046225CPE3D\",\"0000151540UNFFE\",\"0030168066PCE56\",\"0007199258RN6CE\",\"0006560286HBA39\",\"0000157663TR270\",\"0000175032HBA61\",\"0000216997UN03B\",\"0000546937NR0EF\",\"0001501760ALC9A\",\"0006971873RN2F0\",\"0001808500CAF12\",\"0000570375NRC29\",\"0007162610RN002\",\"0000061370NT5C8\",\"0015885164ELCE5\",\"0001083140PCC5D\",\"0009141240WMF66\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.uat.genesisenergy.co.nz/expr/supplyPoint/searchICPRegistry/bulk/v1?includeMeter=true&includeDevice=true&includeTOU=true",
+					"protocol": "https",
+					"host": [
+						"api",
+						"uat",
+						"genesisenergy",
+						"co",
+						"nz"
+					],
+					"path": [
+						"expr",
+						"supplyPoint",
+						"searchICPRegistry",
+						"bulk",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "includeMeter",
+							"value": "true"
+						},
+						{
+							"key": "includeDevice",
+							"value": "true"
+						},
+						{
+							"key": "includeTOU",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Bulk API"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "371c4e1bacd54602a1fe5704ae65cc3f"
+		},
+		{
+			"key": "Secret",
+			"value": "577faE51758F43b4B5dB4f1D3e14e281"
+		}
+	]
+}
